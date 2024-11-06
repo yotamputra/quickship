@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     latitude: DataTypes.FLOAT,
-    longtitude: DataTypes.FLOAT
+    longitude: DataTypes.FLOAT
   }, {
     sequelize,
     modelName: 'User',
