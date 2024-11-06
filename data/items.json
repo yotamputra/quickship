@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Laptop",
+    "courierNote": "Don't forget to contact the recipient before delivery",
+    "imgURL": "https://picsum.photos/200/300?grayscale",
+    "UserId": 1
+  },
+  {
+    "name": "Smartphone",
+    "courierNote": "Be careful, this item is fragile",
+    "imgURL": "https://picsum.photos/seed/picsum/200/300",
+    "UserId": 2
+  }
+]

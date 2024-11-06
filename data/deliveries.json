@@ -1,0 +1,14 @@
+[
+  {
+    "SenderId": 1,
+    "ReceiverId": 2,
+    "ItemId": 1,
+    "status": "pending"
+  },
+  {
+    "SenderId": 2,
+    "ReceiverId": 1,
+    "ItemId": 2,
+    "status": "in transit"
+  }
+]

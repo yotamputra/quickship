@@ -9,3 +9,13 @@ npx sequelize-cli model:generate --name Delivery --attributes SenderId:integer,R
 npx sequelize-cli model:generate --name Delivery_Courier --attributes DeliveryId:integer,CourierId:integer,assignAt:date,status:string
 
 npx sequelize-cli migration:generate --name add-status-to-Delivery
+
+npx sequelize-cli migration:generate --name replace-description-to-courierNote-from-Item
+
+npx sequelize-cli seed:generate --name demo-user
+
+npx sequelize-cli seed:generate --name demo-courier
+
+npx sequelize-cli seed:generate --name demo-item
+
+npx sequelize-cli seed:generate --name demo-delivery
