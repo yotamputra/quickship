@@ -1,0 +1,11 @@
+npx sequelize-cli model:generate --name User --attributes email:string,password:string,latitude:float,longtitude:float
+
+npx sequelize-cli model:generate --name Courier --attributes name:string,phone:string
+
+npx sequelize-cli model:generate --name Item --attributes name:string,description:string,imgURL:string,UserId:integer
+
+npx sequelize-cli model:generate --name Delivery --attributes SenderId:integer,ReceiverId:integer,ItemId:integer
+
+npx sequelize-cli model:generate --name Delivery_Courier --attributes DeliveryId:integer,CourierId:integer,assignAt:date,status:string
+
+npx sequelize-cli migration:generate --name add-status-to-Delivery
