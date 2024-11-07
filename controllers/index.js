@@ -5,6 +5,7 @@ const {
   Item,
   Delivery_Courier,
 } = require("../models");
+const bcrypt = require('bcrypt');
 
 exports.showLoginForm = async (req, res) => {
   try {
@@ -69,15 +70,18 @@ exports.addUser = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
-  // console.log(req.body)
   let { email, password, latitude, longitude } = req.body;
+  
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    
     await User.create({
       email,
-      password,
+      password: hashedPassword,
       latitude: +latitude,
       longitude: +longitude,
     });
+    
     res.redirect("/login");
   } catch (error) {
     console.log(error);
@@ -217,7 +221,6 @@ exports.getDeliveries = async (req, res) => {
   }
 };
 
-
 exports.getCouriers = async (req, res) => {
   try {
     const couriers = await Courier.findAll();
@@ -225,5 +228,40 @@ exports.getCouriers = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.send(error.message);
+  }
+};
+
+exports.editItem = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const item = await Item.findByPk(id);
+
+    let { errors } = req.query;
+    if (errors) errors = errors.split(",");
+
+    res.render('editItem', { item, errors });
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.updateItem = async (req, res) => {
+  try {
+    const {id} = req.params
+    const data = req.body;
+
+    const updatedItem = await Item.update(data, {
+      where: {
+        id: id,
+      },
+    });
+
+    res.redirect(`/items`);
+  } catch (error) {
+    console.log(error);
+    const { id } = req.params;
+    const messages = error.errors.map((el) => el.message).join(",")
+    res.redirect(`/items/${req.params.id}/edit?errors=${messages}`);
   }
 };

@@ -1,4 +1,4 @@
-const { showLoginForm, processLogin, showDashboard, logout, addUser, createUser, getItems, getUsers, getDeliveries, getCouriers, addItem, createItem, addDelivery, createDelivery } = require("../controllers");
+const { showLoginForm, processLogin, showDashboard, logout, addUser, createUser, getItems, getUsers, getDeliveries, getCouriers, addItem, createItem, addDelivery, createDelivery, editItem, updateItem } = require("../controllers");
 
 const router = require("express").Router();
 
@@ -18,6 +18,9 @@ router.get("/items", getItems);
 
 router.get('/items/add', addItem)
 router.post('/items/add', createItem)
+
+router.get('/items/:id/edit', editItem)
+router.post('/items/:id/edit', updateItem)
 
 
 router.get("/deliveries", getDeliveries);

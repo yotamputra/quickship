@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Item</title>
+  </head>
+  <body>
+    <h2>Edit Item</h2>
+
+    <% if (errors) { %>
+      <div style="color: red; margin-bottom: 10px;">
+        <strong><%= errors.join(", ") %></strong>
+      </div>
+    <% } %>
+
+    <form method="POST" action="/items/<%= item.id %>/edit">
+      <label for="name">Item Name:</label><br>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="<%= item.name %>"
+        required
+      /><br><br>
+
+      <label for="courierNote">Courier Note:</label><br>
+      <textarea id="courierNote" name="courierNote"><%= item.courierNote %></textarea><br><br>
+
+      <label for="imgURL">Image URL:</label><br>
+      <input
+        type="url"
+        id="imgURL"
+        name="imgURL"
+        value="<%= item.imgURL %>"
+        required
+      /><br><br>
+
+      <button type="submit">Update Item</button>
+    </form>
+  </body>
+</html>
