@@ -41,7 +41,10 @@ exports.processLogin = async (req, res) => {
 
 exports.showDashboard = async (req, res) => {
   if (req.session.user) {
-    res.render("dashboard", { email: req.session.user.email });
+    const totalItems = await Item.getTotalItem()
+    const {totalCourier} = await Courier.totalCourier()
+
+    res.render("dashboard", { email: req.session.user.email , totalItems, totalCourier});
   } else {
     res.redirect("/login");
   }
@@ -114,7 +117,10 @@ exports.getCouriers = async (req, res) => {
 
 exports.addItem = async (req, res) => {
   try {
-    res.render("addItem");
+    let { errors } = req.query;
+    if (errors) errors = errors.split(",");
+
+    res.render("addItem", {errors});
   } catch (error) {
     console.log(error);
     res.send(error.message);
@@ -127,7 +133,8 @@ exports.createItem = async (req, res) => {
     res.redirect("/items");
   } catch (error) {
     console.log(error);
-    res.send(error.message);
+    const messages = error.errors.map((el) => el.message).join(",")
+    res.redirect(`/items/add?errors=${messages}`)
   }
 };
 
@@ -137,8 +144,9 @@ exports.addDelivery = async (req, res) => {
     const receivers = await User.findAll();
     const items = await Item.findAll();
 
-    console.log(req.session);
-    console.log(sender);
+
+    // console.log(req.session);
+    // console.log(sender);
 
     res.render("addDelivery", {
       receivers,
@@ -167,7 +175,7 @@ exports.createDelivery = async (req, res) => {
     res.redirect("/deliveries");
   } catch (error) {
     console.log(error);
-    res.send(error.message);
+    res.send(error)
   }
 };
 

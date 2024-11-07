@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Couriers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
+  <%- include('_navbar') %>
+  
     <h1>Couriers ( Available )</h1>
     <ul>
         <% couriers.forEach(courier => { %>

@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, fn, col
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Courier extends Model {
@@ -12,6 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Courier.belongsToMany(models.Delivery, { through: models.Delivery_Courier, foreignKey: 'CourierId' });
+    }
+    static totalCourier() {
+      return Courier.findOne({
+        raw: true,
+        attributes: [
+          [fn("COUNT", col("id")), "totalCourier"],
+        ],
+      });
     }
   }
   Courier.init({

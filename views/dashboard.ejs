@@ -4,16 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Welcome, <%= email %>!</h1>
-    <a href="/logout">Logout</a>
+<body class="bg-gray-100">
+  <%- include('_navbar') %>
 
-    <h2>Navigate to:</h2>
-    <ul>
-        <li><a href="/items">Items</a></li>
-        <li><a href="/deliveries">Deliveries</a></li>
-        <li><a href="/couriers">Couriers</a></li>
-    </ul>
+  <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-6">
+    <div class="flex items-center">
+        <div>
+            <h1 class="text-2xl font-semibold text-gray-800">Welcome, <%= email %>!</h1>
+            <p class="text-sm text-gray-500 mt-2">You're all set to explore the dashboard.</p>
+        </div>
+    </div>
+  </div>
+
+
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-6 mt-8">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-gray-800">Total Items</h3>
+        <p class="text-3xl font-bold text-indigo-600"><%= totalItems %></p>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-gray-800">Total Couriers ( Available )</h3>
+        <p class="text-3xl font-bold text-indigo-600"><%= totalCourier %></p>
+    </div>
+
+  </div>
+
+  <div class="max-w-7xl mx-auto p-6 mt-8">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Quick Actions</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  
+      <div class="bg-white p-6 rounded-lg shadow-md text-center flex flex-col justify-between h-full">
+        <form action="/items/add" method="get" class="flex-grow">
+          <button type="submit" class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-md w-full">Add Item</button>
+        </form>
+      </div>
+  
+      <div class="bg-white p-6 rounded-lg shadow-md text-center flex flex-col justify-between h-full">
+        <a href="/deliveries/add" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-md w-full">Add Deliveries</a>
+      </div>
+  
+    </div>
+  </div>
+  
+
 </body>
 </html>

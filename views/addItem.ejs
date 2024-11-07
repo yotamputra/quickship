@@ -7,14 +7,23 @@
 </head>
 <body>
   <h2>Add New Item</h2>
+
+  <% if (errors && errors.length > 0) { %>
+    <ul style="color: red;">
+      <% errors.forEach((error) => { %>
+        <li><%= error %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
   <form method="POST">
     <label for="name">Item Name:</label> <br>
-    <input type="text" id="name" name="name" required><br><br>
+    <input type="text" id="name" name="name"><br><br>
 
     <label for="courierNote">Courier Note:</label> <br>
     <textarea id="courierNote" name="courierNote"></textarea><br><br>
 
-    <label for="imgURL">Image URL ( optional ):</label> <br>
+    <label for="imgURL">Image URL:</label> <br>
     <input type="url" id="imgURL" name="imgURL"><br><br>
 
     <button type="submit">Add Item</button>
