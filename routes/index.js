@@ -1,4 +1,4 @@
-const { showLoginForm, processLogin, showDashboard, logout, getUsers, getDeliveries, getCouriers } = require("../controllers");
+const { showLoginForm, processLogin, showDashboard, logout, getUsers, getDeliveries, getCouriers, getItems } = require("../controllers");
 
 const router = require("express").Router();
 

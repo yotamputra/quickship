@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Couriers</title>
+</head>
+<body>
+    <h1>Couriers</h1>
+    <ul>
+        <% couriers.forEach(courier => { %>
+<li><%= courier.name %> - Phone: <%= courier.phone %></li>
+            <%  }) %>
+    </ul>
+</body>
+</html>
