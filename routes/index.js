@@ -1,4 +1,4 @@
-const { showLoginForm, processLogin, showDashboard, logout, addUser, createUser } = require("../controllers");
+const { showLoginForm, processLogin, showDashboard, logout, addUser, createUser, getItems, getUsers, getDeliveries, getCouriers } = require("../controllers");
 
 const router = require("express").Router();
 
@@ -14,22 +14,12 @@ router.get("/register", addUser);
 router.post("/register", createUser);
 
 
+router.get("/items", getItems);
 
+router.get("/users", getUsers);
 
-router.get("/items", (req, res) => {
-  res.send("Menampilkan data items");
-});
+router.get("/deliveries", getDeliveries);
 
-router.get("/users", (req, res) => {
-  res.send("Menampilkan data users");
-});
-
-router.get("/deliveries", (req, res) => {
-  res.send("Menampilkan status pengiriman");
-});
-
-router.get("/couriers", (req, res) => {
-  res.send("Menampilkan data kurir");
-});
+router.get("/couriers", getCouriers);
 
 module.exports = router

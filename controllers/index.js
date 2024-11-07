@@ -75,7 +75,47 @@ exports.createUser = async (req, res) => {
       latitude: +latitude,
       longitude: +longitude,
     });
-    res.redirect("/login")
+    res.redirect("/login");
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.getItems = async (req, res) => {
+  try {
+    const items = await Item.findAll();
+    res.send(items);
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.findAll();
+    res.send(users);
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.getDeliveries = async (req, res) => {
+  try {
+    const deliveries = await Delivery.findAll();
+    res.send(deliveries);
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.getCouriers = async (req, res) => {
+  try {
+    const couriers = await Courier.findAll();
+    res.send(couriers);
   } catch (error) {
     console.log(error);
     res.send(error.message);

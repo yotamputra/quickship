@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Delivery.belongsTo(models.User, { foreignKey: 'senderId', as: 'sender' });
-      Delivery.belongsTo(models.User, { foreignKey: 'receiverId', as: 'receiver' });
-      Delivery.belongsTo(models.Item, { foreignKey: 'itemId' });
-      Delivery.belongsToMany(models.Courier, { through: models.Delivery_Courier, foreignKey: 'deliveryId' });
+      Delivery.belongsTo(models.User, { foreignKey: 'SenderId', as: 'sender' });
+      Delivery.belongsTo(models.User, { foreignKey: 'ReceiverId', as: 'receiver' });
+      Delivery.belongsTo(models.Item, { foreignKey: 'ItemId' });
+      Delivery.belongsToMany(models.Courier, { through: models.Delivery_Courier, foreignKey: 'DeliveryId' });
     }
   }
   Delivery.init({

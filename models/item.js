@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Item.belongsTo(models.User, { foreignKey: 'userId' });
-      Item.hasOne(models.Delivery, { foreignKey: 'itemId' });
+      Item.belongsTo(models.User, { foreignKey: 'UserId' });
+      Item.hasOne(models.Delivery, { foreignKey: 'ItemId' });
     }
   }
   Item.init({
     name: DataTypes.STRING,
-    description: DataTypes.STRING,
+    courierNote: DataTypes.STRING,
     imgURL: DataTypes.STRING,
     UserId: DataTypes.INTEGER
   }, {
