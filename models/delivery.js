@@ -16,11 +16,20 @@ module.exports = (sequelize, DataTypes) => {
       Delivery.belongsTo(models.Item, { foreignKey: 'ItemId' });
       Delivery.belongsToMany(models.Courier, { through: models.Delivery_Courier, foreignKey: 'DeliveryId' });
     }
+
+    get deliveryStatus() {
+      if (!this.status) {
+        return 'PENDING'
+      } else {
+        return this.status.toUpperCase()
+      }
+    }
   }
   Delivery.init({
     SenderId: DataTypes.INTEGER,
     ReceiverId: DataTypes.INTEGER,
     ItemId: DataTypes.INTEGER,
+    status: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Delivery',

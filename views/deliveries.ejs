@@ -25,6 +25,9 @@
               Sender: <%= delivery.sender.email %> - Receiver: <%= delivery.receiver.email %> - Item: <%= delivery.Item.name %>
             </p>
             <p class="text-sm text-gray-600">Sender ID: <%= delivery.SenderId %> | Receiver ID: <%= delivery.ReceiverId %> | Item ID: <%= delivery.ItemId %></p>
+            <p class="text-sm text-gray-600 mt-2">
+              Status: <%= delivery.deliveryStatus %>
+            </p>
           </li>
         <% }) %>
       </ul>

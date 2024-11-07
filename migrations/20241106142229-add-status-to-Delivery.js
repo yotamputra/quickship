@@ -11,7 +11,6 @@ module.exports = {
      */
     await queryInterface.addColumn('Deliveries', 'status', {
       type: Sequelize.STRING,
-      defaultValue: 'pending'
     })
   },
 

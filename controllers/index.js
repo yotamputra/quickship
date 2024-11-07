@@ -1,4 +1,4 @@
-const { compareHashed } = require("../helpers/bcrypt");
+const { compareHashed, hash } = require("../helpers/bcrypt");
 const {
   User,
   Courier,
@@ -82,24 +82,26 @@ exports.addUser = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   let { email, password, latitude, longitude } = req.body;
-  
+
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hash(password);
     
+    // Membuat user baru
     await User.create({
       email,
       password: hashedPassword,
       latitude: +latitude,
       longitude: +longitude,
     });
-    
+
     res.redirect("/login");
   } catch (error) {
     console.log(error);
-    const messages = error.errors.map((el) => el.message).join(",")
-    res.redirect(`/signup?errors=${messages}`)
+    const messages = error.errors.map((el) => el.message).join(",");
+    res.redirect(`/register?errors=${messages}`);
   }
 };
+
 
 exports.getItems = async (req, res) => {
   try {
