@@ -1,4 +1,4 @@
-const { showLoginForm, processLogin, showDashboard, logout } = require("../controllers");
+const { showLoginForm, processLogin, showDashboard, logout, getUsers, getDeliveries, getCouriers } = require("../controllers");
 
 const router = require("express").Router();
 
@@ -14,20 +14,12 @@ router.get("/", (req, res) => {
   res.redirect('./login')
 });
 
-router.get("/items", (req, res) => {
-  res.send("Menampilkan data items");
-});
+router.get("/items", getItems);
 
-router.get("/users", (req, res) => {
-  res.send("Menampilkan data users");
-});
+router.get("/users", getUsers);
 
-router.get("/deliveries", (req, res) => {
-  res.send("Menampilkan status pengiriman");
-});
+router.get("/deliveries", getDeliveries);
 
-router.get("/couriers", (req, res) => {
-  res.send("Menampilkan data kurir");
-});
+router.get("/couriers", getCouriers);
 
 module.exports = router

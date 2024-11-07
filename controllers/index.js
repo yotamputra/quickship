@@ -47,3 +47,45 @@ exports.logout = (req, res) => {
     res.redirect("/login");
   });
 };
+
+exports.getItems = async (req, res) => {
+  try {
+    const items = await Item.findAll();
+    res.send(items)
+  } catch (error) {
+    console.log(error);
+    res.send("Terjadi kesalahan saat mengambil data item")
+  }
+}
+
+exports.getUsers = async (req, res) => {
+  try{
+    const users = await User.findAll();
+    res.send(users);
+  } catch (error) {
+    console.log(error);
+    res.send("Terjadi kesalahan saat mengambil data user")
+    
+  }
+};
+
+exports.getDeliveries = async (req, res) => {
+ try {
+  const deliveries = await Delivery.findAll();
+  res.send(deliveries);
+ } catch (error) {
+  console.log(error);
+  res.send('Terjadi kesalahan saat mengambil status pengiriman')
+  
+ }
+};
+
+exports.getCouriers = async (req, res) => {
+  try {
+    const couriers = await Courier.findAll()
+    res.send(couriers);
+  } catch (error) {
+    console.log(error);
+    res.send("Terjadi kesalahan saat mengambil data kurir")
+  }
+};
