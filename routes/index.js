@@ -1,18 +1,20 @@
-const { showLoginForm, processLogin, showDashboard, logout } = require("../controllers");
+const { showLoginForm, processLogin, showDashboard, logout, addUser, createUser } = require("../controllers");
 
 const router = require("express").Router();
-
-
-router.get("/login", showLoginForm);
-router.post("/login", processLogin);
-router.get("/dashboard", showDashboard);
-router.get("/logout", logout);
-
 
 
 router.get("/", (req, res) => {
   res.redirect('./login')
 });
+router.get("/login", showLoginForm);
+router.post("/login", processLogin);
+router.get("/dashboard", showDashboard);
+router.get("/logout", logout);
+router.get("/register", addUser);
+router.post("/register", createUser);
+
+
+
 
 router.get("/items", (req, res) => {
   res.send("Menampilkan data items");

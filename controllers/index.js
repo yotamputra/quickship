@@ -1,4 +1,10 @@
-const { User, Courier, Delivery, Item, Delivery_Courier } = require("../models");
+const {
+  User,
+  Courier,
+  Delivery,
+  Item,
+  Delivery_Courier,
+} = require("../models");
 
 exports.showLoginForm = async (req, res) => {
   try {
@@ -16,12 +22,14 @@ exports.processLogin = async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     if (!user || user.password !== password) {
-      return res.render("login", { errorMessage: "Email atau password salah!" });
+      return res.render("login", {
+        errorMessage: "Email atau password salah!",
+      });
     }
 
     req.session.user = {
       id: user.id,
-      email: user.email
+      email: user.email,
     };
 
     res.redirect("/dashboard");
@@ -31,7 +39,7 @@ exports.processLogin = async (req, res) => {
   }
 };
 
-exports.showDashboard = (req, res) => {
+exports.showDashboard = async (req, res) => {
   if (req.session.user) {
     res.render("dashboard", { email: req.session.user.email });
   } else {
@@ -39,11 +47,37 @@ exports.showDashboard = (req, res) => {
   }
 };
 
-exports.logout = (req, res) => {
+exports.logout = async (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      return "Terjadi kesalahan saat logout"
+      return "Terjadi kesalahan saat logout";
     }
     res.redirect("/login");
   });
+};
+
+exports.addUser = async (req, res) => {
+  try {
+    res.render("signup");
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.createUser = async (req, res) => {
+  // console.log(req.body)
+  let { email, password, latitude, longitude } = req.body;
+  try {
+    await User.create({
+      email,
+      password,
+      latitude: +latitude,
+      longitude: +longitude,
+    });
+    res.redirect("/login")
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
 };

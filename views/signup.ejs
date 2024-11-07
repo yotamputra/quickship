@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up with Location</title>
+</head>
+<body>
+  <h2>Sign Up</h2>
+  <form action="/register" method="POST">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <br><br>
+
+    <label for="latitude">Latitude:</label>
+    <input type="text" id="latitude" name="latitude" readonly>
+    <br><br>
+
+    <label for="longitude">Longitude:</label>
+    <input type="text" id="longitude" name="longitude" readonly>
+    <br><br>
+
+    <label> Current Location:</label>
+    <p id="location">Fetching your location...</p>
+    <br><br>
+
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <script>
+    const apiKey = "8cda3c20316d47a8b328173212ad0b74"; 
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        document.getElementById("latitude").value = latitude;
+        document.getElementById("longitude").value = longitude;
+
+        // Fetch location name from OpenCage
+        fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`)
+          .then(response => response.json())
+          .then(data => {
+            const location = data.results[0].formatted;
+            document.getElementById("location").innerText = location;
+          })
+          .catch(error => {
+            document.getElementById("location").innerText = "Unable to fetch location";
+            console.log("Error fetching location:", error);
+          });
+      }, function(error) {
+        document.getElementById("location").innerText = "Failed to get location: " + error.message;
+      });
+    } else {
+      document.getElementById("location").innerText = "Geolocation not supported by this browser.";
+    }
+  </script>
+</body>
+</html>
