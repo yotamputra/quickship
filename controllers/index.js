@@ -191,13 +191,32 @@ exports.getItems = async (req, res) => {
 
 exports.getDeliveries = async (req, res) => {
   try {
-    const deliveries = await Delivery.findAll();
-    res.render('deliveries', {deliveries});
+    const deliveries = await Delivery.findAll({
+      include: [
+        {
+          model: User,
+          as: 'sender',
+          attributes: ['email'],
+        },
+        {
+          model: User,
+          as: 'receiver',
+          attributes: ['email'],
+        },
+        {
+          model: Item,
+          attributes: ['name'],
+        }
+      ]
+    });
+
+    res.render('deliveries', { deliveries });
   } catch (error) {
     console.log(error);
     res.send(error.message);
   }
 };
+
 
 exports.getCouriers = async (req, res) => {
   try {

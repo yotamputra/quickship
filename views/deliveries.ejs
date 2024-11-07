@@ -6,22 +6,28 @@
     <title>Deliveries</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
+  <body class="bg-gray-100">
     <%- include('_navbar') %>
-    
-    <h1>Deliveries</h1>
-    <ul>
-      <% deliveries.forEach(delivery => { %>
-      <li>
-        Sender ID: <%= delivery.SenderId %> - Receiver ID: <%=
-        delivery.receiverId %> - Item ID: <%= delivery.itemId %>
-      </li>
-      <% }) %>
-    </ul>
 
-    <form action="/deliveries/add" method="get">
-      <button type="submit">Add Delivery</button>
-    </form>
+    <div class="max-w-7xl mx-auto p-4">
+      <form action="/items/add" method="get">
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-md shadow-md">Add Delivery</button>
+      </form>
+    </div>
 
+    <div class="max-w-7xl mx-auto p-6 mt-8">
+      <h1 class="text-3xl font-semibold text-gray-800">Deliveries</h1>
+
+      <ul class="mt-6">
+        <% deliveries.forEach(delivery => { %>
+          <li class="bg-white shadow-md rounded-lg p-4 mb-4">
+            <p class="text-lg font-semibold text-gray-800">
+              Sender: <%= delivery.sender.email %> - Receiver: <%= delivery.receiver.email %> - Item: <%= delivery.Item.name %>
+            </p>
+            <p class="text-sm text-gray-600">Sender ID: <%= delivery.SenderId %> | Receiver ID: <%= delivery.ReceiverId %> | Item ID: <%= delivery.ItemId %></p>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
   </body>
 </html>

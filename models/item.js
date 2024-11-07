@@ -34,16 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     courierNote: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: "Courier note is required."
-        },
-        notEmpty: {
-          msg: "Courier note cannot be empty."
-        },
-      }
+      type: DataTypes.STRING
     },
     imgURL: {
       type: DataTypes.STRING,
@@ -54,16 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     UserId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: "User ID is required."
-        },
-        isInt: {
-          msg: "User ID must be an integer."
-        }
-      }
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,
