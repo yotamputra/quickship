@@ -42,7 +42,7 @@ exports.showDashboard = (req, res) => {
 exports.logout = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      return res.status(500).send("Terjadi kesalahan saat logout");
+      return "Terjadi kesalahan saat logout"
     }
     res.redirect("/login");
   });

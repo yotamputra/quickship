@@ -11,7 +11,7 @@ router.get("/logout", logout);
 
 
 router.get("/", (req, res) => {
-  res.send("Selamat datang di QuickShip!");
+  res.redirect('./login')
 });
 
 router.get("/items", (req, res) => {
