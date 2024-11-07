@@ -4,29 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Delivery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h2>Add New Delivery</h2>
+<body class="bg-gray-50">
 
-  <form method="POST">
-    <label for="sender">Send From : <%= email %></label> <br> <br>
+  <%- include('_navbar') %>
 
-    <label for="receiverId">Receiver:</label>
-    <select id="receiverId" name="receiverId" required>
-      <% receivers.forEach(receiver => { %>
-        <option value="<%= receiver.id %>"><%= receiver.email %></option>
-      <% }); %>
-    </select><br><br>
+  <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-8">
+    <h2 class="text-3xl font-semibold text-gray-800 text-center">Add New Delivery</h2>
 
+    <form method="POST" class="space-y-6 mt-6">
+      <div class="space-y-2">
+        <label for="sender" class="block text-lg font-medium text-gray-700">Send From: <%= email %></label>
+      </div>
 
-    <label for="itemId">Item:</label>
-    <select id="itemId" name="itemId" required>
-      <% items.forEach(item => { %>
-        <option value="<%= item.id %>"><%= item.name %></option>
-      <% }); %>
-    </select><br><br>
+      <div class="space-y-2">
+        <label for="receiverId" class="block text-lg font-medium text-gray-700">Receiver:</label>
+        <select id="receiverId" name="receiverId" required class="block w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+          <% receivers.forEach(receiver => { %>
+            <option value="<%= receiver.id %>"><%= receiver.email %>
+          <% }); %>
+        </select>
+      </div>
 
-    <button type="submit">Add Delivery</button>
-  </form>
+      <div class="space-y-2">
+        <label for="itemId" class="block text-lg font-medium text-gray-700">Item:</label>
+        <select id="itemId" name="itemId" required class="block w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+          <% items.forEach(item => { %>
+            <option value="<%= item.id %>"><%= item.name %></option>
+          <% }); %>
+        </select>
+      </div>
+
+      <div class="mt-6">
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          Add Delivery
+        </button>
+      </div>
+    </form>
+  </div>
+
 </body>
 </html>

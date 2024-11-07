@@ -6,12 +6,26 @@
   <title>Sign Up with Location</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <img class="mx-auto h-15 w-auto" src="https://img.icons8.com/?size=100&id=7493&format=png&color=000000" alt="Your Company">
     <h2 class="text-center text-xl font-bold tracking-tight text-gray-900">quickship.</h2> <br>
     <h2 class="mt-5 text-center text-2xl font-bold tracking-tight text-gray-900">Sign Up</h2>
   </div>
+
+  <% if (errors) { %>
+    <div class="mt-10 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-md shadow-sm">
+      <strong><%= errors.join(", ") %></strong>
+    </div>
+  <% } %>
+  
+  <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-md shadow-sm">
+      <%= errorMessage %>
+    </div>
+  <% } %>
+  
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <form action="/register" method="POST" class="space-y-6">
@@ -22,14 +36,14 @@
       <div>
         <label for="email" class="block text-sm font-medium text-gray-900">Email</label>
         <div class="mt-2">
-          <input type="email" id="email" name="email" required class="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2">
+          <input type="email" id="email" name="email" class="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2">
         </div>
       </div>
 
       <div>
         <label for="password" class="block text-sm font-medium text-gray-900">Password</label>
         <div class="mt-2">
-          <input type="password" id="password" name="password" required class="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2">
+          <input type="password" id="password" name="password" class="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2">
         </div>
       </div>
 

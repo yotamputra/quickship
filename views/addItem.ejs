@@ -4,29 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Item</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h2>Add New Item</h2>
+<body class="bg-gray-100">
 
-  <% if (errors && errors.length > 0) { %>
-    <ul style="color: red;">
-      <% errors.forEach((error) => { %>
-        <li><%= error %></li>
-      <% }) %>
-    </ul>
-  <% } %>
+  <%- include('_navbar') %>
 
-  <form method="POST">
-    <label for="name">Item Name:</label> <br>
-    <input type="text" id="name" name="name"><br><br>
+  <div class="max-w-4xl mx-auto p-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Add New Item</h2>
 
-    <label for="courierNote">Courier Note:</label> <br>
-    <textarea id="courierNote" name="courierNote"></textarea><br><br>
+    <% if (errors && errors.length > 0) { %>
+      <div class="mb-4 bg-red-100 text-red-700 p-3 rounded-md">
+        <ul>
+          <% errors.forEach((error) => { %>
+            <li><%= error %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
 
-    <label for="imgURL">Image URL:</label> <br>
-    <input type="url" id="imgURL" name="imgURL"><br><br>
+    <form method="POST" class="space-y-6">
+      <div>
+        <label for="name" class="block text-gray-700 font-medium">Item Name:</label>
+        <input type="text" id="name" name="name" class="w-full p-3 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      </div>
 
-    <button type="submit">Add Item</button>
-  </form>
+      <div>
+        <label for="courierNote" class="block text-gray-700 font-medium">Courier Note:</label>
+        <textarea id="courierNote" name="courierNote" class="w-full p-3 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" required></textarea>
+      </div>
+
+      <div>
+        <label for="imgURL" class="block text-gray-700 font-medium">Image URL:</label>
+        <input type="url" id="imgURL" name="imgURL" class="w-full p-3 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      </div>
+
+      <div class="mt-6">
+        <button type="submit" class="w-full bg-indigo-600 text-white font-semibold py-3 rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          Add Item
+        </button>
+      </div>
+    </form>
+  </div>
+
 </body>
 </html>

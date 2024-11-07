@@ -62,7 +62,10 @@ exports.logout = async (req, res) => {
 
 exports.addUser = async (req, res) => {
   try {
-    res.render("signup");
+    let { errors } = req.query;
+    if (errors) errors = errors.split(",");
+
+    res.render("signup", {errors});
   } catch (error) {
     console.log(error);
     res.send(error.message);
@@ -85,7 +88,8 @@ exports.createUser = async (req, res) => {
     res.redirect("/login");
   } catch (error) {
     console.log(error);
-    res.send(error.message);
+    const messages = error.errors.map((el) => el.message).join(",")
+    res.redirect(`/register?errors=${messages}`)
   }
 };
 
