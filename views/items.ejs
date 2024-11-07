@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items</title>
+    <style>
+        /* Gaya dasar untuk tampilan card */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            width: 200px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .card-note {
+            color: #555;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .add-item-button {
+            display: block;
+            margin-top: 2rem;
+            padding: 0.5rem 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-item-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Items</h1>
+
+    <div class="card-container">
+        <% items.forEach(item => { %>
+            <div class="card">
+              <img src="<%= item.imgURL %>" alt="">
+                <p class="card-title"><%= item.name %></p>
+                <p class="card-note"><%= item.courierNote %></p>
+            </div>
+        <% }) %>
+    </div>
+
+    <form action="/items/add" method="get">
+      <button type="submit" class="add-item-button">Add Item</button>
+    </form>
+</body>
+</html>

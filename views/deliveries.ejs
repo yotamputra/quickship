@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deliveries</title>
+  </head>
+  <body>
+    <h1>Deliveries</h1>
+    <ul>
+      <% deliveries.forEach(delivery => { %>
+      <li>
+        Sender ID: <%= delivery.SenderId %> - Receiver ID: <%=
+        delivery.receiverId %> - Item ID: <%= delivery.itemId %>
+      </li>
+      <% }) %>
+    </ul>
+
+    <form action="/deliveries/add" method="get">
+      <button type="submit">Add Delivery</button>
+    </form>
+
+  </body>
+</html>

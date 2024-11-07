@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Delivery</title>
+</head>
+<body>
+  <h2>Add New Delivery</h2>
+  <form method="POST">
+    <label for="sender">Send From : <%= email %></label> <br> <br>
+
+    <label for="receiverId">Receiver:</label>
+    <select id="receiverId" name="receiverId" required>
+      <% receivers.forEach(receiver => { %>
+        <option value="<%= receiver.id %>"><%= receiver.email %></option>
+      <% }); %>
+    </select><br><br>
+
+
+    <label for="itemId">Item:</label>
+    <select id="itemId" name="itemId" required>
+      <% items.forEach(item => { %>
+        <option value="<%= item.id %>"><%= item.name %></option>
+      <% }); %>
+    </select><br><br>
+
+    <button type="submit">Add Delivery</button>
+  </form>
+</body>
+</html>

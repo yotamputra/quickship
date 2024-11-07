@@ -114,7 +114,7 @@ exports.getCouriers = async (req, res) => {
 
 exports.addItem = async (req, res) => {
   try {
-    res.render('addItem');
+    res.render("addItem");
   } catch (error) {
     console.log(error);
     res.send(error.message);
@@ -123,8 +123,78 @@ exports.addItem = async (req, res) => {
 
 exports.createItem = async (req, res) => {
   try {
-    await Item.create(req.body)
-    res.redirect('/items')
+    await Item.create(req.body);
+    res.redirect("/items");
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.addDelivery = async (req, res) => {
+  try {
+    const sender = req.session.user.email;
+    const receivers = await User.findAll();
+    const items = await Item.findAll();
+
+    console.log(req.session);
+    console.log(sender);
+
+    res.render("addDelivery", {
+      receivers,
+      items,
+      email: sender,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.createDelivery = async (req, res) => {
+  try {
+    const { receiverId, itemId } = req.body;
+
+    const senderId = req.session.user.id;
+
+    // Membuat data pengiriman baru
+    const newDelivery = await Delivery.create({
+      SenderId: senderId,
+      ReceiverId: receiverId,
+      ItemId: itemId,
+    });
+
+    res.redirect("/deliveries");
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.getItems = async (req, res) => {
+  try {
+    const items = await Item.findAll();
+    res.render('items', {items});
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.getDeliveries = async (req, res) => {
+  try {
+    const deliveries = await Delivery.findAll();
+    res.render('deliveries', {deliveries});
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.getCouriers = async (req, res) => {
+  try {
+    const couriers = await Courier.findAll();
+    res.render('couriers', {couriers});
   } catch (error) {
     console.log(error);
     res.send(error.message);
