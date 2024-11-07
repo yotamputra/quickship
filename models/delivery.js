@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   Delivery.init({
     SenderId: DataTypes.INTEGER,
     ReceiverId: DataTypes.INTEGER,
-    ItemId: DataTypes.INTEGER
+    ItemId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Delivery',

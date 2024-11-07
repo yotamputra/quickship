@@ -10,7 +10,8 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     await queryInterface.addColumn('Deliveries', 'status', {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      defaultValue: 'pending'
     })
   },
 

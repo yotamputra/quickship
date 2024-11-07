@@ -1,3 +1,4 @@
+const { compareHashed } = require("../helpers/bcrypt");
 const {
   User,
   Courier,
@@ -5,7 +6,6 @@ const {
   Item,
   Delivery_Courier,
 } = require("../models");
-const bcrypt = require('bcrypt');
 
 exports.showLoginForm = async (req, res) => {
   try {
@@ -22,7 +22,15 @@ exports.processLogin = async (req, res) => {
   try {
     const user = await User.findOne({ where: { email } });
 
-    if (!user || user.password !== password) {
+    if (!user) {
+      return res.render("login", {
+        errorMessage: "Email atau password salah!",
+      });
+    }
+
+    const isMatch = await compareHashed(password, user.password);
+
+    if (!isMatch) {
       return res.render("login", {
         errorMessage: "Email atau password salah!",
       });
@@ -89,7 +97,7 @@ exports.createUser = async (req, res) => {
   } catch (error) {
     console.log(error);
     const messages = error.errors.map((el) => el.message).join(",")
-    res.redirect(`/register?errors=${messages}`)
+    res.redirect(`/signup?errors=${messages}`)
   }
 };
 
