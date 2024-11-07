@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Delivery</title>
+  <title>Add New Delivery</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
@@ -14,18 +14,21 @@
     <h2 class="text-3xl font-semibold text-gray-800 text-center">Add New Delivery</h2>
 
     <form method="POST" class="space-y-6 mt-6">
+
       <div class="space-y-2">
         <label for="sender" class="block text-lg font-medium text-gray-700">Send From: <%= email %></label>
       </div>
+
 
       <div class="space-y-2">
         <label for="receiverId" class="block text-lg font-medium text-gray-700">Receiver:</label>
         <select id="receiverId" name="receiverId" required class="block w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
           <% receivers.forEach(receiver => { %>
-            <option value="<%= receiver.id %>"><%= receiver.email %>
+            <option value="<%= receiver.id %>"><%= receiver.email %></option>
           <% }); %>
         </select>
       </div>
+
 
       <div class="space-y-2">
         <label for="itemId" class="block text-lg font-medium text-gray-700">Item:</label>
@@ -35,6 +38,17 @@
           <% }); %>
         </select>
       </div>
+
+
+      <div class="space-y-2">
+        <label for="courierId" class="block text-lg font-medium text-gray-700">Select Courier:</label>
+        <select name="courierId" required class="block w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+          <% couriers.forEach(courier => { %>
+            <option value="<%= courier.id %>"><%= courier.name %></option>
+          <% }); %>
+        </select>
+      </div>
+
 
       <div class="mt-6">
         <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500">

@@ -50,10 +50,14 @@ exports.processLogin = async (req, res) => {
 
 exports.showDashboard = async (req, res) => {
   if (req.session.user) {
-    const totalItems = await Item.getTotalItem()
-    const {totalCourier} = await Courier.totalCourier()
+    const totalItems = await Item.getTotalItem();
+    const { totalCourier } = await Courier.totalCourier();
 
-    res.render("dashboard", { email: req.session.user.email , totalItems, totalCourier});
+    res.render("dashboard", {
+      email: req.session.user.email,
+      totalItems,
+      totalCourier,
+    });
   } else {
     res.redirect("/login");
   }
@@ -73,7 +77,7 @@ exports.addUser = async (req, res) => {
     let { errors } = req.query;
     if (errors) errors = errors.split(",");
 
-    res.render("signup", {errors});
+    res.render("signup", { errors });
   } catch (error) {
     console.log(error);
     res.send(error.message);
@@ -85,7 +89,7 @@ exports.createUser = async (req, res) => {
 
   try {
     const hashedPassword = await hash(password);
-    
+
     // Membuat user baru
     await User.create({
       email,
@@ -101,7 +105,6 @@ exports.createUser = async (req, res) => {
     res.redirect(`/register?errors=${messages}`);
   }
 };
-
 
 exports.getItems = async (req, res) => {
   try {
@@ -138,7 +141,7 @@ exports.addItem = async (req, res) => {
     let { errors } = req.query;
     if (errors) errors = errors.split(",");
 
-    res.render("addItem", {errors});
+    res.render("addItem", { errors });
   } catch (error) {
     console.log(error);
     res.send(error.message);
@@ -151,8 +154,8 @@ exports.createItem = async (req, res) => {
     res.redirect("/items");
   } catch (error) {
     console.log(error);
-    const messages = error.errors.map((el) => el.message).join(",")
-    res.redirect(`/items/add?errors=${messages}`)
+    const messages = error.errors.map((el) => el.message).join(",");
+    res.redirect(`/items/add?errors=${messages}`);
   }
 };
 
@@ -161,7 +164,7 @@ exports.addDelivery = async (req, res) => {
     const sender = req.session.user.email;
     const receivers = await User.findAll();
     const items = await Item.findAll();
-
+    const couriers = await Courier.findAll();
 
     // console.log(req.session);
     // console.log(sender);
@@ -169,6 +172,7 @@ exports.addDelivery = async (req, res) => {
     res.render("addDelivery", {
       receivers,
       items,
+      couriers,
       email: sender,
     });
   } catch (error) {
@@ -179,28 +183,33 @@ exports.addDelivery = async (req, res) => {
 
 exports.createDelivery = async (req, res) => {
   try {
-    const { receiverId, itemId } = req.body;
-
+    const { receiverId, itemId, courierId } = req.body;
     const senderId = req.session.user.id;
 
-    // Membuat data pengiriman baru
+
     const newDelivery = await Delivery.create({
       SenderId: senderId,
       ReceiverId: receiverId,
       ItemId: itemId,
     });
 
+
+    await newDelivery.addCourier(courierId, {
+      through: { status: 'PENDING' }
+    });
+
     res.redirect("/deliveries");
   } catch (error) {
     console.log(error);
-    res.send(error)
+    res.send(error.message);
   }
 };
+
 
 exports.getItems = async (req, res) => {
   try {
     const items = await Item.findAll();
-    res.render('items', {items});
+    res.render("items", { items });
   } catch (error) {
     console.log(error);
     res.send(error.message);
@@ -213,22 +222,22 @@ exports.getDeliveries = async (req, res) => {
       include: [
         {
           model: User,
-          as: 'sender',
-          attributes: ['email'],
+          as: "sender",
+          attributes: ["email"],
         },
         {
           model: User,
-          as: 'receiver',
-          attributes: ['email'],
+          as: "receiver",
+          attributes: ["email"],
         },
         {
           model: Item,
-          attributes: ['name'],
-        }
-      ]
+          attributes: ["name"],
+        },
+      ],
     });
 
-    res.render('deliveries', { deliveries });
+    res.render("deliveries", { deliveries });
   } catch (error) {
     console.log(error);
     res.send(error.message);
@@ -238,7 +247,7 @@ exports.getDeliveries = async (req, res) => {
 exports.getCouriers = async (req, res) => {
   try {
     const couriers = await Courier.findAll();
-    res.render('couriers', {couriers});
+    res.render("couriers", { couriers });
   } catch (error) {
     console.log(error);
     res.send(error.message);
@@ -253,7 +262,7 @@ exports.editItem = async (req, res) => {
     let { errors } = req.query;
     if (errors) errors = errors.split(",");
 
-    res.render('editItem', { item, errors });
+    res.render("editItem", { item, errors });
   } catch (error) {
     console.log(error);
     res.send(error.message);
@@ -262,7 +271,7 @@ exports.editItem = async (req, res) => {
 
 exports.updateItem = async (req, res) => {
   try {
-    const {id} = req.params
+    const { id } = req.params;
     const data = req.body;
 
     const updatedItem = await Item.update(data, {
@@ -275,7 +284,7 @@ exports.updateItem = async (req, res) => {
   } catch (error) {
     console.log(error);
     const { id } = req.params;
-    const messages = error.errors.map((el) => el.message).join(",")
+    const messages = error.errors.map((el) => el.message).join(",");
     res.redirect(`/items/${req.params.id}/edit?errors=${messages}`);
   }
 };
