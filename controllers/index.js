@@ -1,3 +1,4 @@
+const { where, Op } = require("sequelize");
 const { compareHashed, hash } = require("../helpers/bcrypt");
 const {
   User,
@@ -207,8 +208,22 @@ exports.createDelivery = async (req, res) => {
 
 
 exports.getItems = async (req, res) => {
+  const {keyword} = req.query
+
   try {
-    const items = await Item.findAll();
+    let items
+    if(keyword) {
+      items = await Item.findAll({
+        where: {
+          name: {
+            [Op.iLike]: `%${keyword}%`
+          }
+        }
+      });
+    } else {
+      items = await Item.findAll();
+    }
+
     res.render("items", { items });
   } catch (error) {
     console.log(error);
