@@ -283,8 +283,26 @@ exports.updateItem = async (req, res) => {
     res.redirect(`/items`);
   } catch (error) {
     console.log(error);
-    const { id } = req.params;
     const messages = error.errors.map((el) => el.message).join(",");
     res.redirect(`/items/${req.params.id}/edit?errors=${messages}`);
   }
 };
+
+exports.deleteItem = async (req, res) => {
+  try {
+    console.log(req.params)
+    const { id } = req.params;
+
+    const item = await Item.findOne({
+      where: {
+        id: id,
+      }
+    });
+
+    await item.destroy()
+    res.redirect(`/items`);
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+}
