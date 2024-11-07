@@ -92,16 +92,6 @@ exports.getItems = async (req, res) => {
   }
 };
 
-exports.getUsers = async (req, res) => {
-  try {
-    const users = await User.findAll();
-    res.send(users);
-  } catch (error) {
-    console.log(error);
-    res.send(error.message);
-  }
-};
-
 exports.getDeliveries = async (req, res) => {
   try {
     const deliveries = await Delivery.findAll();
@@ -116,6 +106,25 @@ exports.getCouriers = async (req, res) => {
   try {
     const couriers = await Courier.findAll();
     res.send(couriers);
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.addItem = async (req, res) => {
+  try {
+    res.render('addItem');
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.createItem = async (req, res) => {
+  try {
+    await Item.create(req.body)
+    res.redirect('/items')
   } catch (error) {
     console.log(error);
     res.send(error.message);
